@@ -54,7 +54,7 @@ let add = (a,b) => a + b
 let keyup = Rx.Observable.fromEvent(document.body,'keydown')
 
 let eventToPolarity = (decrement, increment) => (e) => 
-  keynames.is(decrement,e) ? -1 : keynames.is(increment,e) ? 10 : 0 
+  keynames.is(decrement,e) ? -1 : keynames.is(increment,e) ? 1 : 0 
 
 var x = keyup
   .map(eventToPolarity("LEFT","RIGHT"))

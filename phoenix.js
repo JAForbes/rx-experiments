@@ -9,7 +9,7 @@ module.exports = function(module,options){
         disposeCB && disposeCB()
         Object.assign(nextHotData, module.hot.data)  
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }) 
     
