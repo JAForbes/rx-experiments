@@ -9,8 +9,10 @@ var phoenix = require('./phoenix')(module, {
   //phoenix will handle copying over the current phoenix data to the new phoenix
   //but you can put some logic 
   beforeCopy: function(){
+    console.log('beforeCopy')
     phoenix.streams.forEach(function(stream){
-      stream.last()
+      //kill streams or subscriptions
+      stream.last && stream.last() || stream.dispose && stream.dispose()
     })
     delete phoenix.streams
   }
@@ -71,10 +73,14 @@ var y = keyup
   .scan(add)
   .map(updateState('y'))
   
+var interval = Rx.Observable.interval(1000, Rx.Scheduler.requestAnimationFrame)
+  .timestamp()
+  .bufferWithCount(2, 1)
+  .map(w => w[1].timestamp - w[0].timestamp)
+  .subscribe(function(dt){
+      console.log(dt)
+  })
+  
+var coords = x.combineLatest(y, (x,y) => ({x,y}) ).subscribe(render)
 
-var coords = x.combineLatest(y, (x,y) => ({x,y}) )
-phoenix.streams = [ keyup,x,y,coords ]
-
-coords.subscribe(function(coords){
-  render(coords)
-})
+phoenix.streams = [ keyup,x,y,coords,interval ]
