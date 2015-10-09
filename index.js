@@ -28,7 +28,6 @@ let context = canvas.getContext('2d')
     canvas.height = 200
     canvas.style.backgroundColor = '#FFF000'
 
-console.log(JSON.stringify(phoenix),null,2)
 var state = phoenix.state = Object.assign(
   {
     x:0, 
