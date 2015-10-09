@@ -4,10 +4,6 @@
   If we are not hot reloading we store in local storage 
 */
 
-// var phoenix = require('./phoenix')(module, );
-
-
-
 var phoenix = require('./phoenix')(module,{
   dispose: function(){
     phoenix.streams.forEach(function(stream){
@@ -73,11 +69,6 @@ var y = keyup
   .scan(add)
   .map(updateState('y'))
   
- 
-
-
-// var vx = Rx.Observable.Just(0)
-// var vy = Rx.Observable.Just(0)
 
 var coords = x.combineLatest(y, (x,y) => ({x,y}) )
 phoenix.streams = [ keyup,x,y,coords ]
