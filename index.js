@@ -4,8 +4,11 @@
   If we are not hot reloading we store in local storage 
 */
 
-var phoenix = require('./phoenix')(module,{
-  dispose: function(){
+var phoenix = require('./phoenix')(module, {
+  
+  //phoenix will handle copying over the current phoenix data to the new phoenix
+  //but you can put some logic 
+  beforeCopy: function(){
     phoenix.streams.forEach(function(stream){
       stream.last()
     })
@@ -54,7 +57,7 @@ let add = (a,b) => a + b
 let keyup = Rx.Observable.fromEvent(document.body,'keydown')
 
 let eventToPolarity = (decrement, increment) => (e) => 
-  keynames.is(decrement,e) ? -1 : keynames.is(increment,e) ? 1 : 0 
+  keynames.is(decrement,e) ? -1 : keynames.is(increment,e) ? 10 : 0 
 
 var x = keyup
   .map(eventToPolarity("LEFT","RIGHT"))
